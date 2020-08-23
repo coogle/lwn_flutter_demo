@@ -25,6 +25,13 @@ dependencies:
     sdk: flutter
   http: ^0.12.0+2
   dart_rss: ^1.0.1
+  webview_flutter: ^0.3.22+1
+  flutter_html: ^1.0.0
+  flutter_svg: ^0.18.0
+  url_launcher: ^5.5.0
+
+dependency_overrides:
+  xml: ^4.1.0
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

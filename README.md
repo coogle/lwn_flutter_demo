@@ -1,6 +1,6 @@
 # lwn_flutter_demo
 
-A new Flutter project.
+A demo of flutter for lwn.net
 
 ## Getting Started
 

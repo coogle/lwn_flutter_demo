@@ -20,7 +20,7 @@ class LWNHeadlineScreen extends StatelessWidget
         ),
         body: FutureBuilder<Rss1Feed>(
             future: feed,
-            builder: (context, snapshot) {
+            builder: (BuildContext context, AsyncSnapshot snapshot) {
 
               if(snapshot.hasData) {
                 return ListView.builder(
@@ -34,7 +34,7 @@ class LWNHeadlineScreen extends StatelessWidget
                           ),
                           subtitle: Html(
                               data: "<p>" + item.description.trim() + "</p>",
-                              onLinkTap: (url) async {
+                              onLinkTap: (String url) async {
 
                                 debugPrint("Attempting to launch: $url");
 
@@ -54,18 +54,8 @@ class LWNHeadlineScreen extends StatelessWidget
 
                           onTap: () async {
 
-                            RegExp exp = new RegExp(
-                                r'^http[s]?:\/\/lwn.net\/Articles\/([0-9]+).*',
-                                multiLine: false
-                            );
-
-                            if(!exp.hasMatch(item.link)) {
-                              debugPrint("Could not find an article ID in the URL");
-                              return;
-                            }
-
-                            String articleId = exp.firstMatch(item.link).group(1);
-                            String linkUrl = "https://lwn.net/Articles/" + articleId;
+                            Uri rssLink = Uri.parse(item.link);
+                            String linkUrl = "https://lwn.net/Articles/${rssLink.pathSegments[1]}/";
 
                             if(await canLaunch(linkUrl)) {
                               await launch(linkUrl);
